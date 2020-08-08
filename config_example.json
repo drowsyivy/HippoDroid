@@ -1,0 +1,9 @@
+{
+    "admins": ["1234", "4567"],
+    "moderators": ["420", "69"],
+    "token": "token goes here",
+    "public_channel": "channel id goes here",
+    "mod_channel": "channel id goes here",
+    "description": "HippoDroid",
+    "status": "Exchanges for days!"
+}
