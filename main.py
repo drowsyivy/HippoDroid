@@ -25,7 +25,7 @@ nouns = ['time', 'year', 'people', 'way', 'day', 'man', 'thing', 'woman', 'life'
 'program', 'question', 'work', 'government', 'number', 'night', 'point', 'home', 'water', 'room', 'mother', 'area',
 'money', 'story', 'fact', 'month', 'lot', 'right', 'study', 'book', 'eye', 'job', 'word', 'business', 'issue', 'side',
 'kind', 'head', 'house', 'service', 'friend', 'father', 'power', 'hour', 'game', 'line', 'end', 'member', 'law', 'car',
-'city', 'community', 'Name', 'president', 'team', 'minute', 'idea', 'kid', 'body', 'information', 'back', 'parent',
+'city', 'community', 'name', 'president', 'team', 'minute', 'idea', 'kid', 'body', 'information', 'back', 'parent',
 'face', 'others', 'level', 'office', 'door', 'health', 'person', 'art', 'war', 'history', 'party', 'result', 'change',
 'morning', 'reason', 'research', 'girl', 'guy', 'moment', 'air', 'teacher', 'force', 'education']
 
@@ -46,7 +46,7 @@ with open('config.json') as config_file:
     config = json.load(config_file)
 with open('requests.json') as requests_file:
     requests = json.load(requests_file)
-    print(requests)
+    # print(requests)
 
 # Initialise bot settings
 bot = commands.Bot(command_prefix=['!'], description=config['description'],
@@ -210,6 +210,22 @@ async def resolve_asker(ctx, request_id: str = None):
         else:
             hidden_name = f"||{str(base64.b64encode(str.encode(asker)))[2:-1]}||"
             await ctx.send(f'The asker of this question is {hidden_name}')
+
+@bot.command(hidden=False, aliases=['inspireme'], description='Maximum of 100 words.')
+async def inspire(ctx, number: int = 3):
+    """
+    Provides a string of a given number of randomly chosen words for inspiration.
+    """
+    if number > 100:
+        number = 100
+    reply = f'Here are the randomly chosen words you have asked for: \n\n**'
+    while number > 0:
+        reply += random.choice(nouns)
+        number -= 1
+        if number > 0:
+            reply += ' '
+    reply += '**\n\nI hope this inspires you to create something great!'
+    await ctx.send(reply)
 
 # Define console output when ready
 @bot.event
